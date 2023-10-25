@@ -1,5 +1,4 @@
-class Solution:
-    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+def mergeTwoLists(self, list1, list2):
         output = ListNode()
         output.next = ListNode()
         output_head = output
