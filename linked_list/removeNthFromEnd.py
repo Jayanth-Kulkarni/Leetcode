@@ -1,4 +1,7 @@
 # Definition for singly-linked list.
+# Edge cases: 
+    # 1. when the first element is removed, just return head.next
+    # 2. when there is only 1 element in the linkedlist and it has to be removed, return none  
 # 0. Save the head as a pointer variable, save it before each pass 
 # 1. Do 1 pass and get the length of linked list
 # 2. Find the index number corresponding to the nth node from the end
