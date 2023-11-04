@@ -5,10 +5,10 @@
 #         self.left = left
 #         self.right = right
 
-# 1. Recursion 
+# 1. Use recursive DFS 
 class Solution:    
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
-            return
+            return 0
 
-        return 1 + (self.maxDepth(root.left),self.maxDepth(root.right))
+        return 1 + max(self.maxDepth(root.left),self.maxDepth(root.right))
