@@ -39,3 +39,17 @@ def container_with_most_water(height):
 
 # height = [7, 7, 2]
 # print(container_with_most_water(height))
+
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        l,r = 0,len(height)-1
+        maxHeight = 0
+        while l<r:
+            currentHeight = min(height[l],height[r]) * (r-l)
+            maxHeight = max(maxHeight,currentHeight)
+            if height[l]<height[r] and l<r:
+                l+=1
+            elif l<r:
+                r-=1
+        return maxHeight
