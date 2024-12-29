@@ -1,7 +1,8 @@
 class Solution:
     import string
     def isPalindrome(self, s: str) -> bool:
-        for char in string.punctuation:
-            s = s.replace(char,"")
+        for punct in string.punctuation:
+            if punct in s:
+                s = s.replace(punct,"")
         s = s.replace(" ","").lower()
-        return s==s[::-1]
+        return s == s[::-1]
