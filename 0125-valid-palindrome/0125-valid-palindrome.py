@@ -4,5 +4,4 @@ class Solution:
         for char in string.punctuation:
             s = s.replace(char,"")
         s = s.replace(" ","").lower()
-        print(s)
         return s==s[::-1]
