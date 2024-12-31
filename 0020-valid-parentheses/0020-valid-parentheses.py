@@ -1,6 +1,6 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        valid = {"(":")", "{":"}", "[":"]"}
+        valid = {"(":")","{":"}","[":"]"}
         stack = []
         for char in s:
             if char in valid:
@@ -9,6 +9,6 @@ class Solution:
                 stack.pop()
             else:
                 return False
-        if len(stack) > 0:
-            return False
-        return True
+        if len(stack)==0:
+            return True
+        return False
