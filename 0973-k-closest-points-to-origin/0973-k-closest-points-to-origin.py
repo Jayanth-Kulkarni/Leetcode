@@ -1,10 +1,8 @@
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        distance = []
+        distances = []
         for point in points:
-            distance.append([math.pow(point[0],2)+math.pow(point[1],2),point])
-        sorted_list= sorted(distance, key=lambda x: x[0])
-        res = []
-        for i in range(k):
-            res.append(sorted_list[i][1])
-        return res
+            distances.append([math.pow(point[0],2)+math.pow(point[1],2),point])
+        sorted_distances = sorted(distances, key= lambda x: x[0])
+        result = [i[1] for i in sorted_distances[:k]]
+        return result
