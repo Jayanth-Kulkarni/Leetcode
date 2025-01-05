@@ -1,10 +1,8 @@
 class Solution:
-    from collections import Counter
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        a,b = Counter(ransomNote), Counter(magazine)
-        for i, j in a.items():
-            if i in b and b[i] >= j:
-                continue
-            else:
+        from collections import Counter
+        count_ransom, count_magazine = Counter(ransomNote), Counter(magazine)
+        for value, count in count_ransom.items():
+            if value not in count_magazine or count_magazine[value] < count:
                 return False
         return True
