@@ -14,7 +14,6 @@ class MyQueue:
 
     def empty(self) -> bool:
         return len(self.stack) == 0
-        
 
 
 # Your MyQueue object will be instantiated and called as such:
