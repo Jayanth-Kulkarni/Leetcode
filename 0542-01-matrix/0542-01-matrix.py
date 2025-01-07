@@ -1,22 +1,19 @@
 class Solution:
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
-        row, column = len(mat), len(mat[0])
+        directions = [(0,1),(0,-1),(1,0),(-1,0)]
         queue = deque()
-        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-
-        for i in range(row):
-            for j in range(column):
-                if mat[i][j] == 0:
-                    queue.append([i,j])
+        row, col = len(mat), len(mat[0])
+        for r in range(row):
+            for c in range(col):
+                if mat[r][c] == 0:
+                    queue.append([r,c])
                 else:
-                    mat[i][j] = float("inf")
-        
+                    mat[r][c] = float("inf")
         while len(queue) > 0:
-            r, c =  queue.popleft()
-            for i, j in directions:
-                new_r, new_c =  r+i, c+j
-                if 0<= new_r < row and 0<= new_c < column and mat[new_r][new_c] > mat[r][c] + 1:
-                    mat[new_r][new_c] = mat[r][c] + 1
-                    queue.append([new_r, new_c])
-
+            r, c = queue.popleft()
+            for dir in directions:
+                n_r, n_c = r + dir[0], c + dir[1]
+                if 0 <= n_r < row and 0 <= n_c < col and mat[n_r][n_c] > mat[r][c] + 1:
+                    mat[n_r][n_c] =   mat[r][c] + 1
+                    queue.append([n_r, n_c])
         return mat
