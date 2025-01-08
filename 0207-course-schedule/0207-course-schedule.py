@@ -1,50 +1,43 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        
-        # Create an empty list for each course
-        map = {i:[] for i in range(numCourses)}
-        
-        # Fill in the list for each course with it's prereq
-        # In case the prereq list is empty, then that course can be completed!
+        # create an adj list for all the courses
+        # create an empty list for all courses, will remain empty if there are prereqs
+        map = {course:[] for course in range(numCourses)}
+
+        # Run through the prereq list and fill in the map
         for course, prereq in prerequisites:
             map[course].append(prereq)
 
-        # Initialize a visited set, to keep track of all the courses that were previously visited
-        # If the course can be completed, remove it from visited list. 
+        # Create a visited set to track the nodes visited in the gaph's path
         visited = set()
 
-        def dfs(course):
-            # If we come accross the same course again, before it get's removed then return False
-            if course in visited:
+        # Dfs function to figure out loops in the gaph's path 
+        def dfs(node):
+            # if node in visited, return False
+            if node in visited:
                 return False
 
-            # If the prepreq for that course is empty, then return True
-            if map[course] == []:
+            # if a course doesn't have any prereqs then it can be completed
+            if map[node] == []:
                 return True
             
-            # Add the course to visited list
-            visited.add(course)
+            visited.add(node)
 
-            # Keep calling all the prereqs of that course to see if there is a loop
-            for pre in map[course]:
+            for prereq in map[node]:
+                if not dfs(prereq): return False
 
-                # # Return false as soon as the function returns false
-                if not dfs(pre): return False
+            # Remove the node from the path
+            visited.remove(node)
 
-            # If all the prepreqs were completed without any loop, then remove it from the visited set
-            visited.remove(course)
+            # Mark the map[node] as empty as we have verified all prereqs
+            map[node] = []
 
-            # Make the map[course] as empty, as we visited all the prereqs
-            map[course] = []
-
-            # Return true, as that course can now be completed!
+            # Return True, as we looped through all the prereqs all were able to complete
             return True
 
-        # For all the course in the map recursively call dfs
+
+        # Run a for loop over all the courses and call the dfs function for it.
         for course in map:
-            
-            # Return false as soon as the function returns false
             if not dfs(course): return False
         
         return True
-            
