@@ -1,8 +1,11 @@
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
         from collections import Counter
-        count_ransom, count_magazine = Counter(ransomNote), Counter(magazine)
-        for value, count in count_ransom.items():
-            if value not in count_magazine or count_magazine[value] < count:
+        r = Counter(ransomNote)
+        m = Counter(magazine)
+        for char in r:
+            if char in m and r[char] <= m[char]:
+                continue
+            else:
                 return False
-        return True
+        return True 
