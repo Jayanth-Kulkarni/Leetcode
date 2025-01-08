@@ -6,10 +6,11 @@
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
+        if not head:
+            return False
         slow, fast = head, head
-        while slow!= None and fast != None and fast.next!=None:
-            slow = slow.next
-            fast = fast.next.next
+        while slow and fast and fast.next:
+            slow, fast = slow.next, fast.next.next
             if slow == fast:
                 return True
-        return False
+        return False  
