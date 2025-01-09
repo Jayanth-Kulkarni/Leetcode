@@ -9,19 +9,20 @@ class Solution:
         if not root:
             return []
         queue = [[root]]
+        visited = set()
         result = [[root.val]]
         while len(queue) > 0:
-            inner_vals = []
-            inner_nodes = []
-            current_nodes = queue.pop()
-            for node in current_nodes:
-                if node.left != None:
-                    inner_vals.append(node.left.val)
-                    inner_nodes.append(node.left)
-                if node.right != None:
-                    inner_vals.append(node.right.val)
-                    inner_nodes.append(node.right)
-            if inner_vals != []:
-                result.append(inner_vals)
-                queue.append(inner_nodes)
+            inner_queue = []
+            inner_value = []
+            queue_list = queue.pop(0)
+            for cur in queue_list:
+                if cur.left != None:
+                    inner_queue.append(cur.left)
+                    inner_value.append(cur.left.val)
+                if cur.right != None:
+                    inner_queue.append(cur.right)
+                    inner_value.append(cur.right.val)
+            if inner_queue != []:
+                queue.append(inner_queue)
+                result.append(inner_value)
         return result
