@@ -1,43 +1,42 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # create an adj list for all the courses
-        # create an empty list for all courses, will remain empty if there are prereqs
+        # form the adj list
         map = {course:[] for course in range(numCourses)}
-
-        # Run through the prereq list and fill in the map
+        
+        # fill the adj list
         for course, prereq in prerequisites:
             map[course].append(prereq)
 
-        # Create a visited set to track the nodes visited in the gaph's path
+        # visited set to detect loops
         visited = set()
 
-        # Dfs function to figure out loops in the gaph's path 
-        def dfs(node):
-            # if node in visited, return False
-            if node in visited:
+        # dfs to identify loops
+        def dfs(course):
+
+            # if there are no prereqs, that course can be completed
+            if map[course] == []:
+                return True
+
+            # if a loop is found return False
+            if course in visited:
                 return False
 
-            # if a course doesn't have any prereqs then it can be completed
-            if map[node] == []:
-                return True
-            
-            visited.add(node)
+            # Add the current course to the path (incompleted visited!)
+            visited.add(course)
 
-            for prereq in map[node]:
-                if not dfs(prereq): return False
+            # Run loop-checker for all the prereq for that course
+            for prereq in map[course]:
+                if not dfs(prereq): return False 
 
-            # Remove the node from the path
-            visited.remove(node)
+            # Remove the course from the visited set, as it's completed
+            visited.remove(course)
 
-            # Mark the map[node] as empty as we have verified all prereqs
-            map[node] = []
+            # Remove all prereqs in the map
+            map[course] = []
 
-            # Return True, as we looped through all the prereqs all were able to complete
             return True
 
-
-        # Run a for loop over all the courses and call the dfs function for it.
-        for course in map:
+        for course in range(numCourses):
             if not dfs(course): return False
-        
+
         return True
