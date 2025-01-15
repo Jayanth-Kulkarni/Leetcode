@@ -1,14 +1,18 @@
 class Solution:
+    from collections import defaultdict
     def isAnagram(self, s: str, t: str) -> bool:
-        if len(s) != len(t):
-            return False
-        
-        c_s = defaultdict(int)
-        c_t = defaultdict(int)
+        s_d, t_d = defaultdict(int), defaultdict(int)
+        for i in s:
+            s_d[i] += 1
+        for i in t:
+            t_d[i] += 1
 
-        
-        for i,j in zip(s,t):
-            c_s[i] += 1
-            c_t[j] += 1
-        
-        return c_s == c_t
+        if len(s_d) != len(t_d):
+            return False
+
+        for key, value in s_d.items():
+            if key in t_d and value == t_d[key]:
+                continue
+            else:
+                return False
+        return True
