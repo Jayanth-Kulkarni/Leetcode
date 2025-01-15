@@ -1,19 +1,20 @@
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
-        visited = []
         queue = deque()
-        row, col = len(image), len(image[0])
-        original_color = image[sr][sc]
+        r, c = len(image), len(image[0])
+        oc = image[sr][sc]
         image[sr][sc] = color
-        visited.append([sr,sc])
-        queue.append([sr,sc])
-        directions = ((0,1),(0,-1),(1,0),(-1,0))
+        directions = [(0,-1), (0,1), (-1,0), (1,0)]
+        queue.append([sr, sc])
+        visited = set()
+        visited.add((sr, sc))
         while len(queue) > 0:
-            sr, sc = queue.popleft()
-            for direction in directions:
-                new_sr, new_sc = sr + direction[0], sc + direction[1]
-                if 0 <= new_sr < row and 0 <= new_sc < col and [new_sr, new_sc] not in visited and image[new_sr][new_sc] == original_color:
-                    image[new_sr][new_sc] = color
-                    queue.append([new_sr, new_sc])
-                    visited.append([new_sr, new_sc])
+            new_r, new_c = queue.popleft()
+            for dr, dc in directions:
+                nr, nc = new_r + dr, new_c + dc
+                print(nr, nc, dr, dc)
+                if 0 <= nr < r and 0 <= nc < c and image[nr][nc] == oc and (nr, nc) not in visited :
+                    image[nr][nc] = color
+                    queue.append([nr, nc])
+                    visited.add((nr,nc))
         return image
