@@ -1,11 +1,12 @@
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        from collections import Counter
-        r = Counter(ransomNote)
-        m = Counter(magazine)
-        for char in r:
-            if char in m and r[char] <= m[char]:
-                continue
-            else:
+        rd, md = defaultdict(int), defaultdict(int)
+        for rn in ransomNote:
+            rd[rn] += 1
+        for rm in magazine:
+            md[rm] += 1
+        
+        for i in rd:
+            if i not in md or rd[i] > md[i]:
                 return False
-        return True 
+        return True
