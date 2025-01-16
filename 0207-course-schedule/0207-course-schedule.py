@@ -1,33 +1,45 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         # Create the adj list for the graph
+        map = {courses: [] for courses in range(numCourses)}
 
-        adj = {course:[] for course in range(numCourses)}
-        for course, prereq in prerequisites:
-            adj[course].append(prereq)
+        # Fill the map with prereqs
+        for course, prereq in  prerequisites:
+            map[course].append(prereq)
 
-        # to find the loop
+        # Create a visited set to check for loops
         visited = set()
 
+        # Perform DFS using this function
         def dfs(course):
-            if adj[course] == []:
-                return True
-            
+
+            # if already visited (loop) return False
             if course in visited:
                 return False
-
-            visited.add(course)
-            for prereq in adj[course]:
+            
+            # If all the prereqs are complated return True
+            if map[course] == []:
+                return True
+                
+            visited.add(course)            
+            # Loop through all the prereq and make sure it can be completed
+            for prereq in map[course]:
                 if not dfs(prereq):
                     return False
-
+            
+            # Remove the course from visited list as it can be completed
             visited.remove(course)
-            adj[course] = []
+
+            # Mark the prereqs for this course as empty, as it can be completed
+            map[course] = []
 
             return True
         
-        for course in range(numCourses):
+        for course in map:
             if not dfs(course):
                 return False
-        
+
         return True
+
+            
+
