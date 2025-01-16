@@ -5,6 +5,6 @@ class Solution:
         for a in range(amount+1):
             for c in coins:
                 if a-c >= 0:
-                    dp[a] = min(dp[a], 1+ dp[a-c])
+                    dp[a] = min(1 + dp[a-c], dp[a])
         
         return dp[amount] if dp[amount] != float("inf") else -1
