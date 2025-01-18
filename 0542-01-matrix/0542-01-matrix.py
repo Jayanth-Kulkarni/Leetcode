@@ -1,21 +1,22 @@
 class Solution:
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
-        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        # Perform BFS, collect all the cells that are marked 0, mark other cells inf
+        row, col = len(mat), len(mat[0])
         queue = deque()
-        row = len(mat)
-        col = len(mat[0])
-        for r in range(row):
-            for c in range(col):
-                if mat[r][c] == 0:
-                    queue.append((r, c))
+        directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+        for i in range(row):
+            for j in range(col):
+                if mat[i][j] == 0:
+                    queue.append((i,j)) 
                 else:
-                    mat[r][c] = float("inf")
+                    mat[i][j] = float("inf")
         
         while len(queue) > 0:
             r, c = queue.popleft()
             for r_, c_ in directions:
                 nr, nc = r + r_, c + c_
-                if 0 <= nr < row and 0 <= nc < col and mat[nr][nc] > 1 + mat[r][c]:
-                    mat[nr][nc] = 1 + mat[r][c]
+                if 0 <= nr < row and 0 <= nc < col and mat[nr][nc] > mat[r][c] + 1:
+                    mat[nr][nc] = mat[r][c] + 1
                     queue.append((nr, nc))
+        
         return mat
