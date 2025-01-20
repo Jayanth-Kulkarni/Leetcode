@@ -1,26 +1,27 @@
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        result = []
+        pre_prod = [nums[0]]
+        for i in nums[1:]:
+            pre_prod.append(i * pre_prod[-1])
         
-        # preprod
-        preprod = [nums[0]]
-        for idx, i in enumerate(nums[1:]):
-            preprod.append(preprod[-1] * i)
+        reverse = nums[::-1]
+        post_prod = [reverse[0]]
+        for i in reverse[1:]:
+            post_prod.append(i * post_prod[-1])
         
-        rev = nums[::-1]
-        print(rev)
-        postprod = [rev[0]]
-        for idx, i in enumerate(rev[1:]):
-            postprod.append(postprod[-1] * i)
-        
-        postprod = postprod[::-1]
+        res = []
 
-        print(preprod,postprod)
+        # [a, b, c, d]
+        # pre_prod = [a, ab, abc, abcd]
+        # post_prod = [abcd, dcb, dc, d]
+        # res = [dcb, adc, abd, abc]
+        post_prod = post_prod[::-1]
         for i in range(len(nums)):
-            if i-1>=0 and i+1<len(nums):
-                result.append(preprod[i-1] * postprod[i+1])
-            elif i-1>=0: 
-                result.append(preprod[i-1])
-            elif i+1<len(nums):
-                result.append(postprod[i+1])
-        return result
+            if i-1 >=0 and i+1 < len(nums):
+                res.append(pre_prod[i-1] * post_prod[i+1])
+            elif  i-1 >= 0:
+                res.append(pre_prod[i-1])
+            elif  i+1 < len(nums):
+                res.append(post_prod[i+1])
+        
+        return res
