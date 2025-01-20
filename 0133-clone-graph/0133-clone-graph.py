@@ -8,22 +8,22 @@ class Node:
 
 from typing import Optional
 class Solution:
-
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         clone = {}
         def dfs(node):
             if not node:
                 return None
-
+            
             if node in clone:
                 return clone[node]
             
-            copy = Node(node.val)
-            clone[node] = copy            
+            duplicate = Node(node.val)
+            clone[node] = duplicate
+
             for nei in node.neighbors:
-                copy.neighbors.append(dfs(nei))
+                clone[node].neighbors.append(dfs(nei))
+            
             return clone[node]
-
         return dfs(node)
+    
 
-        
