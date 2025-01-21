@@ -3,10 +3,10 @@ class Solution:
         rd, md = defaultdict(int), defaultdict(int)
         for rn in ransomNote:
             rd[rn] += 1
-        for rm in magazine:
-            md[rm] += 1
-        
-        for i in rd:
-            if i not in md or rd[i] > md[i]:
-                return False
+        for mn in magazine:
+            md[mn] += 1
+        for n in rd:
+            if n in md and md[n] >= rd[n]:
+                continue
+            return False
         return True
