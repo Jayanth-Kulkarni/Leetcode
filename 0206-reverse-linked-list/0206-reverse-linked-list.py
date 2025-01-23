@@ -11,5 +11,4 @@ class Solution:
             cur.next = prev
             prev = cur
             cur = next
-        
         return prev
