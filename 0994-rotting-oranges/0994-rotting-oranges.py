@@ -1,31 +1,31 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        # mark all the 2s to the queue
-        queue =  deque()
+        queue = deque()
         row, col = len(grid), len(grid[0])
-        for i in range(row):
-            for j in range(col):
-                if grid[i][j] == 2:
-                    queue.append((i, j))
-        iterations = 0
         visited = set()
+        iteration = 0
+        for r in range(row):
+            for c in range(col):
+                if grid[r][c] == 2:
+                    queue.append((r, c))
+                    visited.add((r, c))
+
         while len(queue) > 0:
-            for i in range(len(queue)):
-                r,c = queue.popleft()
-                for dir in [(1, 0), (-1, 0), (0, -1), (0, 1)]:
-                    n_r = r + dir[0]
-                    n_c = c + dir[1]
-                    if 0 <= n_r < row and 0 <= n_c < col and grid[n_r][n_c] == 1 and (n_r, n_c) not in visited:
-                        grid[n_r][n_c] = 2
-                        queue.append((n_r, n_c))
-                        visited.add((n_r, n_c))
+            for _ in range(len(queue)):
+                r_, c_ = queue.popleft()
+                for ro, co in [(1,0), (-1, 0), (0, 1), (0, -1)]:
+                    r, c = ro + r_, co + c_
+                    if 0 <= r < row and 0 <= c < col and (r, c) not in visited and grid[r][c] == 1:
+                        grid[r][c] = 2
+                        queue.append((r, c))
+                        visited.add((r, c))
             if len(queue) > 0:
-                iterations += 1
+                iteration += 1
         
         complete = True
-        for i in range(row):
-            for j in range(col):
-                if grid[i][j] == 1:
+        for r in range(row):
+            for c in range(col):
+                if grid[r][c] == 1:
                     complete = False
-
-        return iterations if complete else -1
+                    break
+        return iteration if complete else -1
