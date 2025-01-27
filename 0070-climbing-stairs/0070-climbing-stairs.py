@@ -1,8 +1,8 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        res = [float("inf") for i in range(n+1)]
-        res[n] = 1
-        res[n-1] = 1
-        for i in reversed(range(0, n-1)):
-            res[i] = res[i+1] + res[i+2]
-        return res[0]
+        dp = [float("inf") for i in range(n+1)]
+        dp[n], dp[n-1] = 1, 1
+        for i in reversed(range(n-1)):
+            dp[i] = dp[i+1] + dp[i+2]
+        
+        return dp[0]
