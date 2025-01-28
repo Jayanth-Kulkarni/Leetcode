@@ -7,14 +7,14 @@ class Solution:
                 if mat[r][c] != 0:
                     mat[r][c] = float("inf")
                 else:
-                    queue.append((r, c))
+                    queue.append((r,c))
         
         while len(queue) > 0:
-            r_, c_ = queue.popleft()
-            for ro, co in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                r, c = r_ + ro, c_ + co
-                if 0 <= r < row and 0 <= c < col and mat[r][c] > 1 + mat[r_][c_]:
-                    mat[r][c] = 1 + mat[r_][c_]
+            ro, co = queue.popleft()
+            for r_, c_ in [(1,0), (-1,0), (0,1), (0,-1)]:
+                r, c = ro + r_, co + c_
+                if 0 <= r < row and 0 <= c < col and mat[r][c] > mat[ro][co] + 1:
+                    mat[r][c] = mat[ro][co] + 1
                     queue.append((r, c))
         
         return mat
