@@ -1,21 +1,18 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        nums = candidates
-        n = len(nums)
         res = []
-        cur = []
-        def backtrack(i, cur_sum):
-            if cur_sum == target:
-                res.append(cur[:])
+
+        def dfs(i, cur, total):
+            if total == target:
+                res.append(cur.copy())
                 return
-            if cur_sum > target or i == n:
+            if total > target or i >= len(candidates):
                 return
             
-            backtrack(i+1, cur_sum)
-            cur.append(nums[i])
-
-            backtrack(i, cur_sum + cur[-1])
+            cur.append(candidates[i])
+            dfs(i, cur, total+candidates[i])
             cur.pop()
-
-        backtrack(0, 0)
+            dfs(i+1, cur, total)
+        
+        dfs(0, [], 0)
         return res
