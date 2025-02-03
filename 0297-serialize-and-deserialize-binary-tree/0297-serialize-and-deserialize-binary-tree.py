@@ -11,29 +11,25 @@ class Codec:
         def dfs(root):
             if not root:
                 res.append("N")
-                return
-            
+                return 
             res.append(str(root.val))
             dfs(root.left)
             dfs(root.right)
-            return res
+            return
         dfs(root)
-        return ','.join(res)
+        return (",").join(res)
 
     def deserialize(self, data):
-        vals = data.split(",")
+        data = data.split(",")
         self.i = 0
-        
         def dfs():
-            if vals[self.i] == "N":
+            if data[self.i] == "N":
                 self.i += 1
                 return None
-            
-            node = TreeNode(vals[self.i])
+            node = TreeNode(data[self.i])
             self.i += 1
             node.left = dfs()
             node.right = dfs()
-
             return node
         return dfs()
 
