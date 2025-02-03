@@ -20,6 +20,5 @@ class Solution:
                 if s[l] in dt and cur[s[l]] < dt[s[l]]:
                     have -= 1
                 l += 1
-            r += 1
         l, r = reslen
         return  s[l:r+1] if res != float("inf") else ""
