@@ -9,13 +9,10 @@ class Solution:
         def dfs(root, l, r):
             if not root:
                 return True
-                
-            if not l < root.val < r:
+            
+            if not (l < root.val < r):
                 return False
-
-            left = dfs(root.left, l, root.val)
-            right = dfs(root.right, root.val, r)
-
-            return left and right
+            
+            return (dfs(root.left, l, root.val) and dfs(root.right, root.val, r))
 
         return dfs(root, float("-inf"), float("inf"))
