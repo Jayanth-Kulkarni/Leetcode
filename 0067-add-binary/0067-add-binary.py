@@ -3,16 +3,16 @@ class Solution:
         a, b = a[::-1], b[::-1]
         carry = 0
         res = []
-        
+
         for i in range(max(len(a), len(b))):
-            digit_a = int(a[i]) if i < len(a) else 0
-            digit_b = int(b[i]) if i < len(b) else 0
+            digit1 = int(a[i]) if i < len(a) else 0
+            digit2 = int(b[i]) if i < len(b) else 0
             
-            total = digit_a + digit_b + carry
-            res.append(str(total % 2))
-            carry = total // 2
+            sum = (digit1 + digit2 + carry) % 2
+            carry = (digit1 + digit2 + carry) // 2
+            res.append(str(sum))
         
         if carry:
-            res.append('1')
+            res.append("1")
         
-        return ''.join(res[::-1])
+        return "".join(res[::-1])
