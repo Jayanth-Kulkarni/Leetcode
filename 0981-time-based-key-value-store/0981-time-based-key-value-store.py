@@ -4,27 +4,23 @@ class TimeMap:
         self.d = defaultdict(list)
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        timed = self.d
-        timed[key].append([value, timestamp])
+        self.d[key].append([value,timestamp])
 
     def get(self, key: str, timestamp: int) -> str:
-        timed = self.d
-        if key not in timed:
-            return ""
-        res = timed[key]
-        result = ""
-        l, r = 0, len(res) - 1
+        nums = self.d[key]
+        l, r = 0, len(nums)-1
+        res = ""
         while l <= r:
-            mid = (l+r)//2
-            if res[mid][1] == timestamp:
-                return res[mid][0]
-            if res[mid][1] > timestamp:
-                r = mid - 1
-            else:
-                result = res[mid][0]
-                l = mid + 1
+            m = (l+r)//2
+            if nums[m][1] == timestamp:
+                return nums[m][0]
+            elif nums[m][1] > timestamp:
+                r = m - 1
+            elif nums[m][1] < timestamp:
+                res = nums[m][0]
+                l = m + 1
+        return res
 
-        return result
 
 # Your TimeMap object will be instantiated and called as such:
 # obj = TimeMap()
