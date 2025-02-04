@@ -5,8 +5,8 @@ class Solution:
             rd[rn] += 1
         for mn in magazine:
             md[mn] += 1
-        for n in rd:
-            if n in md and md[n] >= rd[n]:
-                continue
-            return False
+        
+        for rn in ransomNote:
+            if rn not in md or (rn in md and md[rn] < rd[rn]):
+                return False
         return True
