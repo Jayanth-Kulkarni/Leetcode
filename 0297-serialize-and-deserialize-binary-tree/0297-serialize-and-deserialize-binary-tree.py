@@ -13,13 +13,13 @@ class Codec:
             if not root:
                 res.append("N")
                 return
-            
             res.append(str(root.val))
             dfs(root.left)
             dfs(root.right)
-
+            return 
         dfs(root)
         return ",".join(res)
+
 
     def deserialize(self, data):
         self.i = 0
@@ -33,11 +33,11 @@ class Codec:
             self.i += 1
             node.left = dfs()
             node.right = dfs()
-            
+
             return node
         return dfs()
-        
 
+        
 
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
