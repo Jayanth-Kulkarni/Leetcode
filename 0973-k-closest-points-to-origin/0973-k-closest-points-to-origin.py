@@ -1,9 +1,10 @@
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        distances = [[math.pow(point[0], 2) + math.pow(point[1], 2), point] for point in points]
-        heapq.heapify(distances)
-        result = []
+        dist = [[math.pow(x,2) + math.pow(y,2),[x,y]] for x, y in points]
+        heapq.heapify(dist)
+        res = []
         while k > 0:
-            result.append(heapq.heappop(distances)[1])
+            val = heapq.heappop(dist)
+            res.append(val[1])
             k -= 1
-        return result
+        return res
