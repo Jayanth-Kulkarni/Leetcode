@@ -9,11 +9,12 @@ class Solution:
         if not root:
             return
         
-        temp = root.right
-        root.right = root.left
-        root.left = temp
+        tmp = root.left
+        root.left = root.right
+        root.right = tmp
 
         self.invertTree(root.left)
         self.invertTree(root.right)
-        
+
+
         return root
