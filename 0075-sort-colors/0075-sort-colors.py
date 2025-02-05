@@ -1,7 +1,7 @@
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         red, white, blue = 0, 0, len(nums)-1
-        while red <= white <= blue:
+        while 0 <= red <= white <= blue:
             if nums[white] == 0:
                 nums[white], nums[red] = nums[red], nums[white]
                 white += 1
