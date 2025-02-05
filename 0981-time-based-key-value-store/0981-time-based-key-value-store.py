@@ -1,13 +1,13 @@
 class TimeMap:
 
     def __init__(self):
-        self.d = defaultdict(list)
+        self.l = defaultdict(list)
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        self.d[key].append([value,timestamp])
+        self.l[key].append([value,timestamp])
 
     def get(self, key: str, timestamp: int) -> str:
-        nums = self.d[key]
+        nums = self.l[key]
         l, r = 0, len(nums)-1
         res = ""
         while l <= r:
@@ -20,6 +20,7 @@ class TimeMap:
                 res = nums[m][0]
                 l = m + 1
         return res
+            
 
 
 # Your TimeMap object will be instantiated and called as such:
