@@ -9,25 +9,25 @@ class Codec:
 
     def serialize(self, root):
         res = []
-        def dfs(root):
-            if not root:
+        def dfs(node):
+            if not node:
                 res.append("N")
-                return
-            res.append(str(root.val))
-            dfs(root.left)
-            dfs(root.right)
-            return 
+                return None
+            
+            res.append(str(node.val))
+            dfs(node.left)
+            dfs(node.right)
+            return node
         dfs(root)
+
         return ",".join(res)
-
-
     def deserialize(self, data):
         self.i = 0
         data = data.split(",")
         def dfs():
             if data[self.i] == "N":
                 self.i += 1
-                return None
+                return 
             
             node = TreeNode(data[self.i])
             self.i += 1
@@ -36,8 +36,6 @@ class Codec:
 
             return node
         return dfs()
-
-        
 
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
