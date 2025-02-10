@@ -8,16 +8,15 @@ class Solution:
             first = nums[i]
             l = i+1
             r = len(nums)-1
-            
             while l < r < len(nums):
-                second, third = nums[l], nums[r]
-                if first + second + third == 0:
-                    res.append([first, second, third])
-                    l += 1
+                if first + nums[l] + nums[r] == 0:
+                    res.append([first, nums[l], nums[r]])
+                    l+=1
                     while l < r < len(nums) and nums[l-1] == nums[l]:
-                        l += 1 
-                elif l < r < len(nums) and first + second + third > 0:
+                        l+=1
+                elif l < r < len(nums) and first + nums[l] + nums[r] > 0:
                     r -= 1
                 elif l < r < len(nums):
                     l += 1
+            
         return res
