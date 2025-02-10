@@ -3,17 +3,19 @@ class Solution:
         if s == "":
             return 0
         l, r = 0, 1
-        cur = [s[0]]
+        window = [s[0]]
         res = 1
-        while l < r < len(s):
-            if s[r] not in cur:
-                cur.append(s[r])
-                res = max(res,len(cur))
+        while 0 <= l < r < len(s):
+            if s[r] not in window:
+                window.append(s[r])
+                res = max(res, len(window))
+            
             else:
-                while l < r < len(s) and s[l] != s[r]:
-                    cur.remove(s[l])
+                while 0 <= l < r < len(s) and s[l] != s[r]:
+                    window.remove(s[l])
                     l += 1
-                while l < r < len(s) and s[l] == s[r]:
+                while 0 <= l < r < len(s) and s[l] == s[r]:
                     l += 1
-            r+=1
+            r += 1
+        
         return res
