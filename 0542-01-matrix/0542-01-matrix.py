@@ -15,6 +15,6 @@ class Solution:
                 r, c = ro + r_, co + c_
                 if 0 <= r < row and 0 <= c < col and mat[r][c] > mat[ro][co] + 1:
                     mat[r][c] = mat[ro][co] + 1
-                    queue.append((r, c))
+                    queue.append((r,c))
         
         return mat
