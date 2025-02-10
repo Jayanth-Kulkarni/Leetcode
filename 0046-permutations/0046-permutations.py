@@ -3,8 +3,9 @@ class Solution:
         if nums == []:
             return [[]]
         
-        perms =  self.permute(nums[1:])
+        perms = self.permute(nums[1:])
         res = []
+
         for perm in perms:
             for i in range(len(perm)+1):
                 copy = perm.copy()
@@ -12,3 +13,4 @@ class Solution:
                 res.append(copy)
         
         return res
+
