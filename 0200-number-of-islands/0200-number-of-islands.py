@@ -1,26 +1,26 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        islands = 0
+        
         row, col = len(grid), len(grid[0])
-        visited = set()
+        island = 0
 
-        def bfs(r, c):
+        def dfs(ro,co):
             queue = deque()
-            queue.append((r, c))
-            visited.add((r,c))
+            queue.append((ro,co))
             while len(queue) > 0:
-                r_, c_ = queue.popleft()
-                for ro, co in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                    fr, fc = r_ + ro, c_ + co
-                    if 0 <= fr < row and 0 <= fc < col and grid[fr][fc] == "1" and (fr, fc) not in visited:
-                        visited.add((fr, fc))
-                        queue.append((fr, fc))
+                ro, co = queue.popleft()
+                for r_, c_ in [(1,0), (-1,0), (0,1), (0,-1)]:
+                    r = ro + r_
+                    c = co + c_
+                    if 0 <= r < row and 0 <= c < col and grid[r][c] == "1":
+                        grid[r][c] = "2"
+                        queue.append((r,c))                    
+
 
         for r in range(row):
             for c in range(col):
-                if grid[r][c] == "1" and (r,c) not in visited:
-                    bfs(r,c)
-                    islands += 1
+                if grid[r][c] == "1":
+                    dfs(r,c)
+                    island += 1
         
-
-        return islands
+        return island
