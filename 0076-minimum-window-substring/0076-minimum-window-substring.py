@@ -1,28 +1,35 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        td, cd = {}, {}
-        for i in t:
-            td[i] = td.get(i, 0) + 1
+        if t == "": return ""
+
+        countT, window = {}, {}
+        for c in t:
+            countT[c] = 1 + countT.get(c, 0)
         
-        have, need, l = 0, len(td), 0
-        res, reslen = float("inf"), [-1, -1]
+        have, need = 0, len(countT)
+        res, resLen = [-1, -1], float("inf")
+        l = 0
         for r in range(len(s)):
-            ele = s[r]
-            cd[ele] = cd.get(ele, 0) + 1
+            c = s[r]
+            window[c] = 1 + window.get(c, 0)
 
-            if ele in td and cd[ele] == td[ele]:
+            if c in countT and window[c] == countT[c]:
                 have += 1
+            
+            while need == have:
+                if r-l+1 < resLen:
+                    resLen = r-l+1
+                    res = [l, r]
+                d = s[l]
+                window[d] -= 1
 
-            while have == need:
-                if res > (r-l+1):
-                    res = r - l + 1
-                    reslen = [l, r]
-                
-                cd[s[l]] -= 1
-                if s[l] in td and cd[s[l]] < td[s[l]]:
+                if d in countT and window[d] < countT[d]:
                     have -= 1
-                
                 l += 1
         
-        l, r = reslen
-        return s[l:r+1] if res != float("inf") else ""
+        l, r = res
+        if resLen != float("inf"):
+            return s[l:r+1]
+
+        return ""
+                
