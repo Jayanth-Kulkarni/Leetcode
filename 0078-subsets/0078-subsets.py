@@ -1,16 +1,14 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
-        subset = []
-        def dfs(i):
+        cur = []
+        def recurse(cur, i):
             if i >= len(nums):
-                res.append(subset[:])
+                res.append(cur[:])
                 return
-            
-            subset.append(nums[i])
-            dfs(i+1)
-            subset.pop()
-            dfs(i+1)
-            return
-        dfs(0)
+            cur.append(nums[i])
+            recurse(cur, i+1)
+            cur.pop()
+            recurse(cur, i+1)
+        recurse([], 0)
         return res
