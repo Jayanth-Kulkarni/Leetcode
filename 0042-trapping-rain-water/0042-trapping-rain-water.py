@@ -1,13 +1,13 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        res = 0
-        leftmax, rightmax = [0], [0]
-        for h in height:
-            leftmax.append(max(leftmax[-1], h))
-        for h in height[::-1]:
-            rightmax.append(max(rightmax[-1], h))
-        rightmax = rightmax[::-1]
-        for l, r, h in zip(leftmax, rightmax, height):
-            if min(l,r) - h > 0:
+        maxleft, maxright, res = [height[0]], [height[-1]], 0
+        for i in height[1:]:
+            maxleft.append(max(maxleft[-1], i))
+        rev = height[::-1]
+        for i in rev[1:]:
+            maxright.append(max(maxright[-1], i))
+        maxright = maxright[::-1]
+        for l, r, h in zip(maxleft, maxright, height):
+            if (min(l,r) - h) > 0:
                 res += min(l,r) - h
         return res
