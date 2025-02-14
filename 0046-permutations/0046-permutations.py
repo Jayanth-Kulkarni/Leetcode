@@ -9,6 +9,7 @@ class Solution:
         for perm in perms:
             for i in range(len(perm)+1):
                 copy = perm.copy()
-                copy.insert(i,nums[0])
+                copy.insert(i, nums[0])
                 res.append(copy)
+        
         return res
