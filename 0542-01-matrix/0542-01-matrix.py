@@ -9,11 +9,10 @@ class Solution:
                 else:
                     queue.append((r,c))
         
-        while len(queue) > 0:
+        while queue:
             ro, co = queue.popleft()
             for r_, c_ in [(1,0), (-1,0), (0,1), (0,-1)]:
-                r = ro + r_
-                c = co + c_
+                r, c = r_ + ro, c_ + co
                 if 0 <= r < row and 0 <= c < col and mat[r][c] > mat[ro][co] + 1:
                     mat[r][c] = mat[ro][co] + 1
                     queue.append((r,c))
