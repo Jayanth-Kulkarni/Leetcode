@@ -10,20 +10,21 @@ class Solution:
             return []
         queue = deque()
         queue.append([root])
-        res = []
-        res.append(root.val)
-        while len(queue) > 0:
+        res = [root.val]
+        while queue:
             level = queue.popleft()
             inner_res = []
-            inner_queue = []
+            inner_val = []
             for i in range(len(level)):
                 if level[i].left:
-                    inner_queue.append(level[i].left)
-                    inner_res.append(level[i].left.val)
+                    inner_val.append(level[i].left.val)
+                    inner_res.append(level[i].left)
                 if level[i].right:
-                    inner_queue.append(level[i].right)
-                    inner_res.append(level[i].right.val)
-            if inner_res != []:
-                res.append(inner_res[-1])
-                queue.append(inner_queue)
+                    inner_val.append(level[i].right.val)
+                    inner_res.append(level[i].right)
+            if inner_val != []:
+                print(inner_res)
+                queue.append(inner_res)
+                res.append(inner_val[-1])
+
         return res
