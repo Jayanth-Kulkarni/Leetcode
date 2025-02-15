@@ -1,19 +1,18 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
-        def dfs(i, cur, cursum):
-            if cursum == target:
+        def recurse(i, cur, sum):
+            if i >= len(candidates) or sum > target:
+                return
+            if sum == target:
                 res.append(cur[:])
                 return
             
-            if i >= len(candidates) or cursum > target:
-                return 
-
             cur.append(candidates[i])
-            dfs(i, cur, cursum + candidates[i])
+            recurse(i, cur, sum + candidates[i])
             cur.pop()
-            dfs(i+1, cur, cursum)
+            recurse(i+1, cur, sum)
 
             return
-        dfs(0,[],0)
+        recurse(0,[],0)
         return res
