@@ -5,13 +5,14 @@ class Solution:
             d[i] += 1
         res = 0
         flag = False
+        print(d)
         for i in d:
-            if d[i] % 2 == 0:
-                res += d[i]
-            else:
+            if d[i] % 2:
+                print(i, res)
                 flag = True
                 res += d[i] - 1
-
+            else:
+                res += d[i]
         if flag:
             res += 1
         
