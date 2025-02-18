@@ -1,15 +1,15 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
-        def recurse(i, cur):
+        def dfs(i, cur):
             if i >= len(nums):
                 res.append(cur[:])
                 return
-            cur.append(nums[i])
-            recurse(i+1, cur)
-            cur.pop()
-            recurse(i+1, cur)
 
-            return
-        recurse(0, [])
+            cur.append(nums[i])
+            dfs(i+1,cur)
+            cur.pop()
+            
+            dfs(i+1,cur)
+        dfs(0,[])
         return res
