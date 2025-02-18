@@ -11,22 +11,19 @@ class Codec:
         def dfs(root):
             if not root:
                 res.append("N")
-                return
-            
+                return None
             res.append(str(root.val))
             dfs(root.left)
             dfs(root.right)
-
             return
         dfs(root)
-
         return ",".join(res)
 
     def deserialize(self, data):
-        data = data.split(",")
         self.i = 0
+        data = data.split(",")
         def dfs():
-            if data[self.i] == "N":
+            if self.i <len(data) and data[self.i] == "N":
                 self.i += 1
                 return None
             
