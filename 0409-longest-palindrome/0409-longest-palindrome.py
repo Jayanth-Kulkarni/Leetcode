@@ -4,15 +4,15 @@ class Solution:
         for i in s:
             d[i] += 1
         res = 0
-        flag = False
-        print(d)
+        flag = 0
         for i in d:
-            if d[i] % 2:
-                print(i, res)
-                flag = True
-                res += d[i] - 1
-            else:
+            if d[i] % 2 == 0:
                 res += d[i]
+            
+            else:
+                flag = 1
+                res += d[i] - 1
+        
         if flag:
             res += 1
         
