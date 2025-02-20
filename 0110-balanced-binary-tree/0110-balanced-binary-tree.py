@@ -10,8 +10,9 @@ class Solution:
             if not root:
                 return [True, 0]
             
-            left = dfs(root.left)
-            right = dfs(root.right)
-            balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
-            return [balanced, max(left[1], right[1]) + 1]
+            l,r = dfs(root.left), dfs(root.right)
+            balanced = True if l[0] and r[0] and abs(l[1] - r[1]) <= 1 else False
+
+            return [balanced, 1 + max(l[1], r[1])]
+        
         return dfs(root)[0]
