@@ -1,24 +1,42 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        output, cur, sign, stack = 0, 0, 1, []
-        for c in s:
-            if c.isdigit():
-                cur = cur * 10 + int(c)
-            elif c in "+-":
-                output += (cur*sign)
-                cur = 0
-                if c=="-":
-                    sign = -1
-                else:
-                    sign = 1
-            elif c == "(":
-                stack.append(output)
+        # Initialize variables
+        result = 0          # Keeps track of current result
+        current_num = 0     # Builds the current number
+        sign = 1           # Current sign (1 for +, -1 for -)
+        stack = []         # Stack for handling parentheses
+
+        for char in s:
+            # If character is a digit, build the number
+            if char.isdigit():
+                current_num = current_num * 10 + int(char)
+            
+            # If character is + or -
+            elif char in "+-":
+                # Add previous number to result
+                result += current_num * sign
+                current_num = 0
+                # Update sign for next number
+                sign = 1 if char == "+" else -1
+            
+            # If opening parenthesis
+            elif char == "(":
+                # Save current state
+                stack.append(result)
                 stack.append(sign)
-                output = 0
+                # Reset for new calculation
+                result = 0
                 sign = 1
-            elif c == ")":
-                output += (cur*sign)
-                output *= stack.pop()
-                output += stack.pop()
-                cur = 0
-        return output + (cur*sign)
+            
+            # If closing parenthesis
+            elif char == ")":
+                # Add final number inside parentheses
+                result += current_num * sign
+                # Multiply by previous sign
+                result *= stack.pop()
+                # Add to previous result
+                result += stack.pop()
+                current_num = 0
+
+        # Add the last number if exists
+        return result + (current_num * sign)
