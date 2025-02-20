@@ -1,20 +1,21 @@
 class Solution:
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
         row, col = len(mat), len(mat[0])
-        queue = deque()
-        for r in range(row):
-            for c in range(col):
-                if mat[r][c] == 1:
-                    mat[r][c] = float("inf")
+        q = deque()
+        for i in range(row):
+            for j in range(col):
+                if mat[i][j] == 0:
+                    q.append((i,j))
                 else:
-                    queue.append((r,c))
+                    mat[i][j] = float("inf")
         
-        while queue:
-            ro, co = queue.popleft()
+        while q:
+            r1, c1 = q.popleft()
             for r_, c_ in [(1,0), (-1,0), (0,1), (0,-1)]:
-                r, c = r_ + ro, c_ + co
-                if 0 <= r < row and 0 <= c < col and mat[r][c] > mat[ro][co] + 1:
-                    mat[r][c] = mat[ro][co] + 1
-                    queue.append((r,c))
+                r = r1 + r_
+                c = c1 + c_
+                if 0 <= r < row and 0 <= c < col and mat[r][c] > 1 + mat[r1][c1]:
+                    mat[r][c] = 1 + mat[r1][c1]
+                    q.append((r,c))
         
         return mat
