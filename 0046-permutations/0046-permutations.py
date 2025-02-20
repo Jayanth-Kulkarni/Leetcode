@@ -2,7 +2,7 @@ class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         if nums == []:
             return [[]]
-        
+            
         perms = self.permute(nums[1:])
         res = []
 
