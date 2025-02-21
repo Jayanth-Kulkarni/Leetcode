@@ -7,7 +7,7 @@ class Solution:
             for i in range(len(word)):
                 s = word[:i] + "*" + word[i+1:]
                 queuedict[s].append(word)
-        
+        print(queuedict)
         visit = set([beginWord])
         q = deque([beginWord])
         while q:
@@ -17,9 +17,9 @@ class Solution:
                     return res
                 for j in range(len(word)):
                     s = word[:j] + "*" + word[j+1:]
-                    for neiword in queuedict[s]:
-                        if neiword not in visit:
-                            visit.add(neiword)
-                            q.append(neiword)
+                    for nei in queuedict[s]:
+                        if nei not in visit:
+                            q.append(nei)
+                            visit.add(nei)
             res += 1
         return 0
