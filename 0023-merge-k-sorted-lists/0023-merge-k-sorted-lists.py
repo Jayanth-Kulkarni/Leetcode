@@ -7,31 +7,30 @@ class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         if not lists and len(lists) == 0:
             return None
-        
+
         while len(lists) > 1:
-            mergeLists = []
+            mergelists = []
             for i in range(0, len(lists), 2):
-                l1 = lists[i]
-                l2 = lists[i+1] if i+1 < len(lists) else None
-                mergeLists.append(self.mergedLists(l1,l2))
-            lists = mergeLists
+                l1, l2 = lists[i], lists[i+1] if i+1 < len(lists) else None
+                mergelists.append(self.mergeLists(l1, l2))
+            lists = mergelists
         return lists[0]
 
-
-    def mergedLists(self, l1, l2):
+    def mergeLists(self, l1, l2):
         res = ListNode()
         tail = res
+
         while l1 and l2:
-            if l1.val > l2.val:
-                tail.next = l2
-                l2 = l2.next
-            else:
+            if l1.val <= l2.val:
                 tail.next = l1
                 l1 = l1.next
+            elif l2.val < l1.val:
+                tail.next = l2
+                l2 = l2.next
             tail = tail.next
+        
         if l1:
             tail.next = l1
-        
         if l2:
             tail.next = l2
         
