@@ -3,16 +3,16 @@ class Solution:
         if sum(nums) % 2:
             return False
         
-        target = sum(nums) / 2
-        dp = set()
-        dp.add(0)
+        target = sum(nums)/2
+        d = set()
+        d.add(0)
 
         for num in nums:
             copy = set()
-            for i in dp:
+            for i in d:
                 copy.add(i)
                 copy.add(i+num)
-            dp = copy
-            if target in copy:
+            d = copy
+            if target in d:
                 return True
         return False
