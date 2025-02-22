@@ -1,42 +1,24 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        # Initialize variables
-        result = 0          # Keeps track of current result
-        current_num = 0     # Builds the current number
-        sign = 1           # Current sign (1 for +, -1 for -)
-        stack = []         # Stack for handling parentheses
-
-        for char in s:
-            # If character is a digit, build the number
-            if char.isdigit():
-                current_num = current_num * 10 + int(char)
+        res, cur_num, sign, stack = 0, 0, 1, []
+        for c in s:
+            if c.isdigit():
+                cur_num = cur_num *10 + int(c)
             
-            # If character is + or -
-            elif char in "+-":
-                # Add previous number to result
-                result += current_num * sign
-                current_num = 0
-                # Update sign for next number
-                sign = 1 if char == "+" else -1
+            elif c in "+-":
+                res += cur_num * sign
+                cur_num = 0
+                sign = 1 if c == "+" else -1
             
-            # If opening parenthesis
-            elif char == "(":
-                # Save current state
-                stack.append(result)
+            elif c == "(":
+                stack.append(res)
                 stack.append(sign)
-                # Reset for new calculation
-                result = 0
-                sign = 1
+                res, sign = 0, 1
             
-            # If closing parenthesis
-            elif char == ")":
-                # Add final number inside parentheses
-                result += current_num * sign
-                # Multiply by previous sign
-                result *= stack.pop()
-                # Add to previous result
-                result += stack.pop()
-                current_num = 0
-
-        # Add the last number if exists
-        return result + (current_num * sign)
+            elif c == ")":
+                res += cur_num * sign
+                res *= stack.pop()
+                res += stack.pop()
+                cur_num = 0
+        
+        return res + (cur_num * sign)
