@@ -1,37 +1,30 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        td, sd = {}, {}
-        l, r = 0, 0
-        res, reslen = [-1,-1], float("inf")
+        cd, td = defaultdict(int), defaultdict(int)
         for i in t:
-            td[i] = 1 + td.get(i, 0)
+            td[i] += 1
         
-        need, have = len(td), 0
-        # print(need, have)
+        have, need = 0, len(td)
+        l = 0
+        reslen, res = float("inf"), [-1,-1]
         
         for r in range(len(s)):
-            i = s[r]
-            sd[i] = 1 + sd.get(i, 0)
+            c = s[r]
+            cd[c] += 1
 
-            if i in td and td[i] == sd[i]:
-                have += 1        
-
-            # print(sd, td, l, r)
-            while need == have:
+            if c in td and cd[c] == td[c]:
+                have += 1
+            
+            while have == need:
                 if reslen > r-l+1:
                     reslen = r-l+1
                     res = [l, r]
+                a = s[l]
+                cd[a] -= 1
 
-                j = s[l]
-                sd[j] -= 1
-
-                if j in td and td[j] > sd[j]:
+                if a in td and cd[a] < td[a]:
                     have -= 1
-            
+                
                 l += 1
-        
-        l, r = res
-        if reslen != float("inf"):
-            return s[l: r+1]
-        
-        return ""
+        l,r = res
+        return s[l:r+1] if reslen != float("-inf") else ""
