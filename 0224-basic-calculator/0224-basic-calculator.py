@@ -3,7 +3,7 @@ class Solution:
         res, cur_num, sign, stack = 0, 0, 1, []
         for c in s:
             if c.isdigit():
-                cur_num = cur_num *10 + int(c)
+                cur_num = cur_num * 10 + int(c)
             
             elif c in "+-":
                 res += cur_num * sign
