@@ -1,24 +1,22 @@
 class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
         jobs = sorted(zip(startTime, endTime, profit))
-        max_profit = 0
         memo = {}
         def find_max(i):
             if i in memo:
                 return memo[i]
-            if i >= len(jobs):
+            if i == len(jobs):
                 return 0
-            # skip to next job
+            
+            # skip this job
             p_wo_i = find_max(i+1)
 
-            s,e,p = jobs[i]
-            
-            # find next job with current job
-            n_i = bisect.bisect(jobs, (e, -1, -1))
-            p_w_i = find_max(n_i)
+            st,et,p = jobs[i]
+            ni = bisect.bisect(jobs,(et, -1, -1))
+            p_w_i = find_max(ni)
 
-            max_profit = max(p_wo_i, p + p_w_i)
-            memo[i] = max_profit
-            return memo[i]
+            res = max(p_w_i+p, p_wo_i)
 
+            memo[i] = res
+            return res
         return find_max(0)
