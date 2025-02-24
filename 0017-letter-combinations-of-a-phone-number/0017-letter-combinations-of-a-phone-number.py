@@ -9,17 +9,19 @@ class Solution:
             "7":"pqrs",
             "8":"tuv",
             "9":"wxyz"}
-        
+
         def recurse(i, cur):
             if i == len(digits):
-                res.append(cur)
-                return
-            
+                res.append(cur[:])
+                return 
+
             for d in dc[digits[i]]:
                 recurse(i+1, cur+d)
         
-        if digits != "":
-            recurse(0, "")
+        if digits == "":
+            return []
         
+        recurse(0,"")
         return res
+
 
