@@ -1,24 +1,29 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        res, cur_num, sign, stack = 0, 0, 1, []
-        for c in s:
-            if c.isdigit():
-                cur_num = cur_num * 10 + int(c)
+        res = 0
+        sign = 1
+        stack = []
+        cur = 0
+
+        for i in s:
+            if i.isdigit():
+                cur = cur * 10 + int(i)
             
-            elif c in "+-":
-                res += cur_num * sign
-                cur_num = 0
-                sign = 1 if c == "+" else -1
+            elif i in "+-":
+                res += cur * sign
+                cur = 0
+                sign = 1 if i == "+" else -1
             
-            elif c == "(":
+            elif i == "(":
                 stack.append(res)
                 stack.append(sign)
-                res, sign = 0, 1
-            
-            elif c == ")":
-                res += cur_num * sign
+                res = 0
+                sign = 1
+
+            elif i == ")":
+                res += cur * sign
                 res *= stack.pop()
                 res += stack.pop()
-                cur_num = 0
+                cur = 0
         
-        return res + (cur_num * sign)
+        return res + (cur * sign)
