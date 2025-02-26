@@ -1,14 +1,9 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        res = 0
-        sign = 1
-        stack = []
-        cur = 0
-
+        cur, res, sign, stack = 0, 0, 1, []
         for i in s:
             if i.isdigit():
                 cur = cur * 10 + int(i)
-            
             elif i in "+-":
                 res += cur * sign
                 cur = 0
@@ -25,5 +20,6 @@ class Solution:
                 res *= stack.pop()
                 res += stack.pop()
                 cur = 0
-        
+            
+
         return res + (cur * sign)
