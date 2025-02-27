@@ -6,11 +6,16 @@ class Solution:
         for i in range(max(len(a), len(b))):
             digita = int(a[i]) if i < len(a) else 0
             digitb = int(b[i]) if i < len(b) else 0
-            sum = digita + digitb + carry
-            res.append(str(sum%2))
-            carry = int(sum/2)
+            sum_1 = digita + digitb + carry
+            carry = int(sum_1 / 2)
+            sum = sum_1 % 2
+            res.append(str(sum))
         
         if carry:
-            res.append("1")
+            res.append(str(carry))
         
-        return "".join(res[::-1])
+        res = res[::-1]
+        # print(res)
+        result = "".join(res)
+        # print(result)
+        return result
