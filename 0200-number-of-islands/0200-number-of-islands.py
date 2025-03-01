@@ -1,25 +1,25 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         row, col = len(grid), len(grid[0])
-        island = 0
         visited = set()
-        def dfs(ro, co):
+        islands = 0
+        def dfs(r, c):
             queue = deque()
-            queue.append((ro, co))
-            visited.add((ro,co))
+            queue.append((r,c))
+            visited.add((r,c))
             while queue:
-                r_, c_ = queue.popleft()
-                for r1, c1 in [(1,0), (-1,0), (0,1), (0,-1)]:
-                    r = r1 + r_
-                    c = c1 + c_
-                    if 0 <= r < row and 0 <= c < col and grid[r][c] == "1" and (r,c) not in visited:
-                        visited.add((r,c))
-                        queue.append((r,c))
+                ro,co = queue.popleft()
+                for r_, c_ in [(1,0), (-1,0), (0,1), (0,-1)]:
+                    r1 = ro + r_
+                    c1 = co + c_
+                    if 0 <= r1 < row and 0 <= c1 < col and (r1,c1) not in visited and grid[r1][c1] == "1":
+                        visited.add((r1,c1))
+                        queue.append((r1,c1))
 
-        for i in range(row):
-            for j in range(col):
-                if grid[i][j] == "1" and (i,j) not in visited:
-                    dfs(i,j)
-                    island += 1
+        for r in range(row):
+            for c in range(col):
+                if grid[r][c] == "1" and (r,c) not in visited:
+                    dfs(r,c)
+                    islands += 1
         
-        return island
+        return islands
