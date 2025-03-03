@@ -8,14 +8,14 @@ class Solution:
         if len(lists) == 0 or not lists:
             return None
         while len(lists) > 1:
-            mergelists = []
-            for i in range(0,len(lists), 2):
+            mergeLists = []
+            for i in range(0, len(lists), 2):
                 l1, l2 = lists[i], lists[i+1] if i+1 < len(lists) else None
-                mergelists.append(self.merge(l1,l2))
-            lists = mergelists
+                mergeLists.append(self.merge(l1, l2))
+            lists = mergeLists
         
         return lists[0]
-
+    
     def merge(self, l1, l2):
         head = ListNode()
         tail = head
