@@ -6,31 +6,31 @@ class TrieNode:
 class Trie:
 
     def __init__(self):
-        self.trie = TrieNode()
+        self.t = TrieNode()
 
     def insert(self, word: str) -> None:
-        t = self.trie
-        for s in word:
-            if s not in t.children:
-                t.children[s] = TrieNode()
-            t = t.children[s]
+        t = self.t
+        for i in word:
+            if i not in t.children:
+                t.children[i] = TrieNode()
+            t = t.children[i]
         t.eos = True
 
     def search(self, word: str) -> bool:
-        t = self.trie
-        for s in word:
-            if s not in t.children:
+        t = self.t
+        for i in word:
+            if i not in t.children:
                 return False
-            t = t.children[s]
-        return t.eos      
+            t = t.children[i]
+        return t.eos
 
     def startsWith(self, prefix: str) -> bool:
-        t = self.trie
-        for s in prefix:
-            if s not in t.children:
+        t = self.t
+        for i in prefix:
+            if i not in t.children:
                 return False
-            t = t.children[s]
-        return True    
+            t = t.children[i]
+        return True     
 
 
 # Your Trie object will be instantiated and called as such:
