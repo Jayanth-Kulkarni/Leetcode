@@ -1,6 +1,5 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        res = []
         dc = {
             "2": "abc",
             "3": "def",
@@ -10,13 +9,14 @@ class Solution:
             "7": "pqrs",
             "8": "tuv",
             "9": "wxyz"
-        }
+            }
+        res = []
 
         def recurse(i, cur):
             if i == len(digits):
                 res.append(cur[:])
                 return
-        
+            
             for d in dc[digits[i]]:
                 recurse(i+1, cur+d)
         
@@ -24,5 +24,5 @@ class Solution:
             return []
 
         recurse(0, "")
-        
+
         return res
