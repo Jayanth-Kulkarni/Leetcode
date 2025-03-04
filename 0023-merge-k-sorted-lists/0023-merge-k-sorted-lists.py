@@ -5,17 +5,16 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        if len(lists) == 0 or not lists:
+        if not lists or len(lists) == 0:
             return None
         while len(lists) > 1:
-            mergeLists = []
+            mergedlist = []
             for i in range(0, len(lists), 2):
                 l1, l2 = lists[i], lists[i+1] if i+1 < len(lists) else None
-                mergeLists.append(self.merge(l1, l2))
-            lists = mergeLists
-        
+                mergedlist.append(self.merge(l1, l2))
+            lists = mergedlist
         return lists[0]
-    
+
     def merge(self, l1, l2):
         head = ListNode()
         tail = head
