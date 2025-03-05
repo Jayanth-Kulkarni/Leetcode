@@ -5,13 +5,14 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def inOrderTraversal(self, root, order):
-        if root:
-            self.inOrderTraversal(root.left, order)
-            order.append(root.val)
-            self.inOrderTraversal(root.right, order)
-
+    def dfs(self, root, res):
+        if not root:
+            return
+        self.dfs(root.left, res)
+        res.append(root.val)
+        self.dfs(root.right, res)
+        return
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        order = []
-        self.inOrderTraversal(root,order)
-        return order[k-1]
+        res = []
+        self.dfs(root, res)
+        return res[k-1]
