@@ -7,13 +7,13 @@ class Solution:
         d = set()
         d.add(0)
 
-        for i in nums:
+        for num in nums:
             copy = set()
-            for j in d:
-                copy.add(j)
-                copy.add(i+j)
+            for i in d:
+                copy.add(i)
+                copy.add(i+num)
             d = copy
             if target in d:
                 return True
-        
+        print(d)
         return False
