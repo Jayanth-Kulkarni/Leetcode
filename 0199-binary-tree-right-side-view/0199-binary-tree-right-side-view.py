@@ -12,16 +12,17 @@ class Solution:
         q.append([root])
         res = [root.val]
         while q:
+            inner = []
+            innerval = []
             level = q.popleft()
-            length = len(level)
-            inner_queue = []
-            for i in range(length):
-                node = level[i]
+            for node in level:
                 if node.left:
-                    inner_queue.append(node.left)
+                    inner.append(node.left)
+                    innerval.append(node.left.val)
                 if node.right:
-                    inner_queue.append(node.right)
-            if inner_queue != []:
-                q.append(inner_queue)
-                res.append(inner_queue[-1].val)
+                    inner.append(node.right)
+                    innerval.append(node.right.val)
+            if inner != []:
+                q.append(inner)
+                res.append(innerval[-1])
         return res
