@@ -1,12 +1,16 @@
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        rd, md = defaultdict(int), defaultdict(int)
-        for rn in ransomNote:
-            rd[rn] += 1
-        for mn in magazine:
-            md[mn] += 1
+        rd = defaultdict(int)
+        md = defaultdict(int)
+        for r in ransomNote:
+            rd[r] += 1
+        for m in magazine:
+            md[m] += 1
         
-        for rn in ransomNote:
-            if rn not in md or (rn in md and md[rn] < rd[rn]):
+        for i in rd:
+            if i not in md:
+                return False
+            if i in md and md[i] < rd[i]:
                 return False
         return True
+
