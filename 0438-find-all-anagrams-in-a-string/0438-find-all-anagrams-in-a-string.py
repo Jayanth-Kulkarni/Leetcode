@@ -1,23 +1,22 @@
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        if len(p) > len(s):
+        if len(s) < len(p):
             return []
-        res = []
-        cur = defaultdict(int)
-        tar = defaultdict(int)
+        sd, pd = defaultdict(int), defaultdict(int)
         l = 0
+        res = []
         for i in p:
-            tar[i] += 1
-        for r in range(0, len(p)):
-            cur[s[r]] += 1
-        if cur == tar:
-            res.append(l)
+            pd[i] += 1
+        for r in range(len(p)):
+            sd[s[r]] += 1
+        if sd == pd:
+            res.append(0)
         for r in range(len(p), len(s)):
-            cur[s[r]] += 1
-            cur[s[l]] -= 1
-            if cur[s[l]] == 0:
-                del cur[s[l]]
+            sd[s[r]] += 1
+            sd[s[l]] -= 1
+            if sd[s[l]] == 0:
+                del sd[s[l]]
             l += 1
-            if cur == tar:
+            if sd == pd:
                 res.append(l)
         return res
