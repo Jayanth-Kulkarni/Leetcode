@@ -12,17 +12,19 @@ class Solution:
         q.append([root])
         res = [root.val]
         while q:
-            inner = []
-            innerval = []
             level = q.popleft()
-            for node in level:
-                if node.left:
-                    inner.append(node.left)
-                    innerval.append(node.left.val)
-                if node.right:
-                    inner.append(node.right)
-                    innerval.append(node.right.val)
-            if inner != []:
-                q.append(inner)
-                res.append(innerval[-1])
+            inner_level = []
+            inner_res = []
+            for i in range(len(level)):
+                node = level[i]
+                if node.left != None:
+                    inner_level.append(node.left)
+                    inner_res.append(node.left.val)
+                if node.right != None:
+                    inner_level.append(node.right)
+                    inner_res.append(node.right.val)
+
+            if inner_level != []:
+                res.append(inner_res[-1])
+                q.append(inner_level)
         return res
