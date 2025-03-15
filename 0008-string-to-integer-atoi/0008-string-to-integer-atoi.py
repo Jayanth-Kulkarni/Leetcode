@@ -1,25 +1,28 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        s = s.lstrip(" ")
         res = 0
         sign = 1
-        for idx, i in enumerate(s):
-            if idx == 0 and i == "-":
+        s = s.lstrip()
+        for i in range(len(s)):
+            print(i, s[i])
+            if i == 0 and s[i] == "-":
                 sign = -1
                 continue
-            elif idx == 0 and i == "+":
+            elif i == 0 and s[i] == "+":
+                sign = 1
                 continue
-            if i.isdigit():
-                res = res * 10 + int(i)
-            else:
+            elif s[i].isdigit() != True:
                 break
+            
+            res = res * 10 + int(s[i])
         
         if sign == -1:
-            res = sign * res
+            res = -1 * res
         
-        if res < - 2 ** 31:
-            return - 2 ** 31
-        if res > 2 ** 31 - 1:
-            return 2 ** 31 - 1
+        if -2**31 > res :
+            return -2**31
+        
+        if res > 2**31 - 1:
+            return 2**31 - 1
         
         return res
