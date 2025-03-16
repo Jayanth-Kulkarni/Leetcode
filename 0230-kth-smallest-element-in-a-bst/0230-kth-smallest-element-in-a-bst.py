@@ -5,16 +5,13 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    res = []
-    def inorder(self, root, res):
+    def dfs(self, root, res):
         if not root:
             return
-        self.inorder(root.left, res)
+        self.dfs(root.left, res)
         res.append(root.val)
-        self.inorder(root.right, res)
-
-        return
+        self.dfs(root.right, res)
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         res = []
-        self.inorder(root,res)
+        self.dfs(root,res)
         return res[k-1]
