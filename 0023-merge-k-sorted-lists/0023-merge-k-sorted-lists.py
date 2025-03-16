@@ -8,13 +8,13 @@ class Solution:
         if not lists or len(lists) == 0:
             return None
         while len(lists) > 1:
-            mergedlist = []
+            mergelists = []
             for i in range(0, len(lists), 2):
                 l1, l2 = lists[i], lists[i+1] if i+1 < len(lists) else None
-                mergedlist.append(self.merge(l1, l2))
-            lists = mergedlist
+                mergelists.append(self.merge(l1, l2))
+            lists = mergelists
         return lists[0]
-
+    
     def merge(self, l1, l2):
         head = ListNode()
         tail = head
@@ -23,7 +23,7 @@ class Solution:
             if l1.val >= l2.val:
                 tail.next = l2
                 l2 = l2.next
-            elif l2.val > l1.val:
+            elif l1.val < l2.val:
                 tail.next = l1
                 l1 = l1.next
             tail = tail.next
