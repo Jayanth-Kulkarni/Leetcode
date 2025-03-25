@@ -6,5 +6,5 @@ class Solution:
             if cursum < 0:
                 cursum = 0
             cursum += i
-            res = max(res, cursum)
+            res = max(res,cursum)
         return res
