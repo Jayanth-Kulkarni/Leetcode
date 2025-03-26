@@ -9,9 +9,10 @@ class Solution:
         def dfs(root):
             if not root:
                 return 0
-            
-            l = dfs(root.left)
-            r = dfs(root.right)
 
-            return max(l,r) + 1
+            left = dfs(root.left)
+            right = dfs(root.right)
+
+            return max(left, right) + 1
+        
         return dfs(root)
