@@ -1,10 +1,9 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        d = defaultdict(list)
-        for s in strs:
-            split = "".join(sorted(list(s)))
-            d[split].append(s)
+        map = defaultdict(list)
+        for i in strs:
+            map["".join(sorted(i))].append(i)
         res = []
-        for i, j in d.items():
-            res.append(j)
+        for key,value in map.items():
+            res.append(value)
         return res
