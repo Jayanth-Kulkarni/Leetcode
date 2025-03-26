@@ -9,7 +9,8 @@ class MinStack:
         if self.min == []:
             self.min.append(val)
         else:
-            self.min.append(min(self.min[-1], val))
+            min_val = min(self.min[-1], val)
+            self.min.append(min_val)
 
     def pop(self) -> None:
         self.l.pop()
