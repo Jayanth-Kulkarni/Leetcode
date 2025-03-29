@@ -5,15 +5,13 @@ class Solution:
             mid = (l+r)//2
             if nums[mid] == target:
                 return mid
-            # mid is in the left
             if nums[l] <= nums[mid]:
-                if target < nums[l] or nums[mid] < target:
+                if nums[mid] < target or nums[l] > target:
                     l = mid + 1
                 elif nums[mid] > target:
                     r = mid - 1
-            # mid is in the right
             else:
-                if nums[r] < target or nums[mid] > target:
+                if nums[mid] > target or nums[r] < target:
                     r = mid - 1
                 elif nums[mid] < target:
                     l = mid + 1
