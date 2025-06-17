@@ -12,14 +12,13 @@ class Solution:
             if not root:
                 return 0
             
-            lm = dfs(root.left)
-            rm = dfs(root.right)
-            lm = max(lm, 0)
-            rm = max(rm, 0)
+            leftMax = dfs(root.left)
+            rightMax = dfs(root.right)
+            leftMax = max(leftMax, 0)
+            rightMax = max(rightMax, 0)
 
-            res[0] = max(res[0], root.val + lm  + rm)
-
-            return root.val + max(lm, rm)
+            res[0] = max(res[0], root.val + leftMax + rightMax)
+            return root.val + max(leftMax, rightMax)
         
         dfs(root)
         return res[0]
