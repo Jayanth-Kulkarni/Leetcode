@@ -1,4 +1,3 @@
-
 import string
 class Solution:
     def isPalindrome(self, s: str) -> bool:
@@ -10,10 +9,7 @@ class Solution:
         if they are not the same return false
         return true in the end
         """
-        for special in string.punctuation:
-            s = s.replace(special, "")
-        s = s.replace(" ", "")
-        s = s.lower()
+        s = re.sub(r'[^a-zA-Z0-9]', '', s).lower()
         left, right = 0, len(s)-1
         while left < right:
             if s[left] != s[right]:
