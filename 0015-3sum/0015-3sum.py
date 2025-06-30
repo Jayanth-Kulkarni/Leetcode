@@ -1,25 +1,27 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         """
-        Loop over all the nums and call that as the first element
-        Perform 2 pointer search on the remaining array and see if the sum = 0
+        Sort the nums
+        make sure to skip the repeats to avoid duplicates in the list
         """
-        res = []
         nums.sort()
-        for fid in range(len(nums)):
-            f = nums[fid]
-            if fid > 0 and nums[fid-1] == nums[fid]:
-                continue 
-            sid, tid = fid+1, len(nums)-1
-            while sid < tid:
-                if nums[sid] + nums[tid] + f == 0:
-                    res.append([nums[sid], nums[tid], f]) 
-                    sid += 1
-                    tid -= 1
-                    while sid < len(nums)  and nums[sid] == nums[sid-1]:
-                        sid += 1
-                elif nums[sid] + nums[tid] + f > 0:
-                    tid -= 1
-                else:
-                    sid += 1
-        return res
+        result = []
+        for i in range(len(nums)):
+            if i>0 and nums[i] == nums[i-1]:
+                continue
+            left, right = i+1, len(nums)-1
+            while 0 < left < right:
+                sum = nums[i] + nums[left] + nums[right]
+                if sum == 0:
+                    result.append([nums[i], nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+                    while left < right and nums[left] == nums[left-1]:
+                        left += 1
+                    while left < right < len(nums) and nums[right] == nums[right+1]:
+                        right -= 1
+                elif sum > 0:
+                    right -= 1
+                elif sum < 0:
+                    left += 1
+        return result
