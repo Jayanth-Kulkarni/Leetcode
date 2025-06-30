@@ -1,18 +1,20 @@
 class Solution:
     def triangleNumber(self, nums: List[int]) -> int:
         """
-        [4,3,2,2]
-        [4,3,2]
+        nums = [2,3,4,4]
+        first_pointer = 4
+        second_pointer = 2
+        third_pointer = 4
         """
-        result = 0
-        nums.sort(reverse=True)
-        for i in range(len(nums)):
-            current = nums[i]
-            left, right = i+1, len(nums)-1
+        nums.sort()
+        res = 0
+        for high in range(len(nums)-1, -1, -1):
+            left, right = 0, high-1
             while left < right:
-                if nums[right] + nums[left] > current:
-                    result += (right - left)
-                    left += 1
-                else:
+                if nums[left] + nums[right] > nums[high]:
+                    res += right - left
                     right -= 1
-        return result
+                else:
+                    left += 1
+        return res
+        
