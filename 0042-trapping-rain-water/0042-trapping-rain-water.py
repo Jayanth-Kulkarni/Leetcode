@@ -1,19 +1,27 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        """
-        Find a min list and max list 
-        """
-        pre_max_list = [0]
-        post_max_list = [0]
-        result = 0
-        for i in height:
-            pre_max_list.append(max(i, pre_max_list[-1]))
-        for i in height[::-1]:
-            post_max_list.append(max(i, post_max_list[-1]))
+        if not height:
+            return 0
 
-        post_max_list = post_max_list[::-1]
-        for i,j,k in zip(height,pre_max_list,post_max_list):
-            if min(j,k) - i > 0:
-                result += min(j,k) - i
-        
-        return result
+        left = 0
+        right = len(height) - 1
+        leftMax = height[left]
+        rightMax = height[right]
+        count = 0
+
+        while left < right:
+            if leftMax > rightMax:
+                # move right
+                right -= 1
+                if height[right] > rightMax:
+                    rightMax = height[right]
+                else:
+                    count += rightMax - height[right]
+            else:
+                # move left
+                left += 1
+                if height[left] > leftMax:
+                    leftMax = height[left]
+                else:
+                    count += leftMax - height[left]
+        return count
