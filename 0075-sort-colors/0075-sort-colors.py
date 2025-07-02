@@ -2,15 +2,20 @@ class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
+        red -> 0
+        white -> 1
+        blue -> 2
+        point red to 0, blue to end of the list, white to red +1
+        move only white,
         """
-        r, w, b = 0, 0, len(nums)-1
-        while w <= b:
-            if nums[w] == 0:
-                nums[w], nums[r] = nums[r], nums[w]
-                r += 1
-                w += 1
-            elif nums[w] == 1:
-                w += 1
-            elif nums[w] == 2:
-                nums[w], nums[b] = nums[b], nums[w]
-                b -= 1
+        red, white, blue = 0, 0, len(nums)-1
+        while white <= blue:
+            if nums[white] == 0:
+                nums[white], nums[red] = nums[red], nums[white]
+                red += 1
+                white += 1
+            elif nums[white] == 1:
+                white += 1
+            else:
+                nums[white], nums[blue] = nums[blue], nums[white]
+                blue -= 1
