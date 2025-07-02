@@ -3,9 +3,8 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        next_insert_pos = 0
-        for current in range(len(nums)):
-            if nums[current] != 0:
-                nums[current], nums[next_insert_pos] = nums[next_insert_pos], nums[current]
-                next_insert_pos += 1
-            
+        next_swap_position = 0
+        for current_position in range(len(nums)):
+            if nums[current_position] != 0:
+                nums[current_position],  nums[next_swap_position] =  nums[next_swap_position],  nums[current_position]
+                next_swap_position += 1
