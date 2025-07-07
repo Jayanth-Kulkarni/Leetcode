@@ -1,20 +1,19 @@
 class Solution:
     def triangleNumber(self, nums: List[int]) -> int:
         """
-        nums = [2,3,4,4]
-        first_pointer = 4
-        second_pointer = 2
-        third_pointer = 4
+        1. Sort them
+        2. Have the last pointer to the end
+        3. 
         """
+
         nums.sort()
-        res = 0
-        for high in range(len(nums)-1, -1, -1):
-            left, right = 0, high-1
-            while left < right:
-                if nums[left] + nums[right] > nums[high]:
-                    res += right - left
-                    right -= 1
+        count = 0
+        for current_biggest in range(len(nums)-1, -1, -1):
+            l, r = 0, current_biggest - 1
+            while l < r:
+                if nums[l] + nums[r] > nums[current_biggest]:
+                    count +=  r - l
+                    r -= 1
                 else:
-                    left += 1
-        return res
-        
+                    l += 1
+        return count
