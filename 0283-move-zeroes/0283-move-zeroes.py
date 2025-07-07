@@ -3,8 +3,8 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        next_swap_position = 0
-        for current_position in range(len(nums)):
-            if nums[current_position] != 0:
-                nums[current_position],  nums[next_swap_position] =  nums[next_swap_position],  nums[current_position]
-                next_swap_position += 1
+        next_position = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[i], nums[next_position] = nums[next_position], nums[i]
+                next_position += 1
