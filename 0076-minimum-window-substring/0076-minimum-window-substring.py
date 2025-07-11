@@ -1,25 +1,27 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        want_dict, have_dict = defaultdict(int), defaultdict(int)
-        
+        have = l = r = 0
+        res = float("inf")
+        res_list = [-1,-1]
+        hc = defaultdict(int)
+        nc = defaultdict(int)
         for i in t:
-            want_dict[i] += 1
-        
-        want, have, l, res, res_val = len(want_dict), 0, 0, float("inf"), [-1,-1]
-        
+            nc[i] += 1
+        need = len(nc)
         for r in range(len(s)):
             cur = s[r]
-            have_dict[cur] += 1
-            if cur in want_dict and have_dict[cur] == want_dict[cur]:
+            hc[cur] += 1
+            if cur in nc and hc[cur] == nc[cur]:
                 have += 1
-            while have == want:
-                if res > r-l+1:
+            while have == need:
+                if r-l+1 < res:
                     res = r-l+1
-                    res_val = [l, r]
-                left = s[l]
-                have_dict[left] -= 1
-                if left in want_dict and have_dict[left] < want_dict[left]:
-                    have -= 1
+                    res_list = [r,l]
+                prev = s[l]
+                hc[prev] -= 1
+                if prev in nc and nc[prev] > hc[prev]:
+                    have-= 1
                 l+=1
-        l, r = res_val
+        
+        r, l = res_list
         return s[l:r+1] if res != float("inf") else ""
