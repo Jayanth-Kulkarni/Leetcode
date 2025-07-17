@@ -1,11 +1,17 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        l = r = res = 0
-        ch_set = set()
+        """
+        move right pointer by 1 and see if it is not in the set, add it and increment the res count
+        If we see a letter repeat, starting from the left pointer keep moving right by 1 and delete the element in the set and decrement current length, repeat until end of string
+        """
+        l, r = 0, 0
+        cur = set()
+        res = 0
         for r in range(len(s)):
-            while s[r] in ch_set:
-                ch_set.remove(s[l])
-                l += 1
-            ch_set.add(s[r])
-            res = max(res, len(ch_set))
-        return res 
+            while s[r] in cur:
+                cur.remove(s[l])
+                l+=1
+            cur.add(s[r])
+            res = max(res,len(cur))
+        return res
+                
