@@ -1,18 +1,16 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        target_dict = defaultdict(int)
-        current_dict = defaultdict(int)
+        l, r = 0, 0
+        valid, cur = defaultdict(int), defaultdict(int)
         for i in s1:
-            target_dict[i] += 1
-        l = 0
+            valid[i] += 1
         for r in range(len(s2)):
-            current_dict[s2[r]] += 1
-            if r-l+1 == len(s1):
-                if current_dict == target_dict:
-                    return True
-                current_dict[s2[l]] -= 1
-                if current_dict[s2[l]] == 0:
-                    del current_dict[s2[l]]
-                l+=1
-        
+            cur[s2[r]] += 1
+            if r-l+1 > len(s1):
+                cur[s2[l]] -=1
+                if cur[s2[l]] == 0:
+                    del cur[s2[l]]
+                l += 1
+            if cur == valid:
+                return True
         return False
