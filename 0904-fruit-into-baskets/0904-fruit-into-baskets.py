@@ -1,16 +1,17 @@
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        res_dict = defaultdict(int)
-        l = r = res = max_res = 0
+        """
+        move from left to right and keep collecting, as soon as the dict > 3, start removing elements from left
+        """
+        l, r, res = 0, 0, 0
+        d = defaultdict(int)
         while l <= r < len(fruits):
-            res_dict[fruits[r]] += 1
-            res += 1
-            while l <= r < len(fruits) and len(res_dict) > 2:
-                res_dict[fruits[l]] -= 1
-                res -= 1
-                if res_dict[fruits[l]] == 0:
-                    del res_dict[fruits[l]]
-                l+=1
-            r+=1
-            max_res = max(res,max_res)
-        return max_res
+            d[fruits[r]] += 1
+            while len(d) > 2:
+                d[fruits[l]] -= 1
+                if d[fruits[l]] == 0:
+                    del d[fruits[l]]
+                l += 1
+            res = max(res, r-l+1)
+            r += 1
+        return res
