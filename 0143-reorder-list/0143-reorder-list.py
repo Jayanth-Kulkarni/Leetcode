@@ -1,38 +1,46 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
         """
-        Do not return anything, modify head in-place instead.
+        Reorders a linked list from:
+        L0 → L1 → L2 → ... → Ln-1 → Ln
+        to:
+        L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → ...
+
+        Modifies the list in-place.
         """
 
-        # Step1: Find the middle
-        slow = fast = head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-        
+        if not head or not head.next:
+            return
 
-        # Step2: Reverse the second half
-        prev = None
-        cur = slow.next
-        slow.next = None
+        # Step 1: Find the middle of the linked list
+        slow_ptr = fast_ptr = head
+        while fast_ptr and fast_ptr.next:
+            slow_ptr = slow_ptr.next
+            fast_ptr = fast_ptr.next.next
 
-        while cur:
-            next_node = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next_node
-        
+        # Step 2: Reverse the second half of the list
+        prev_node = None
+        curr_node = slow_ptr.next
+        slow_ptr.next = None  # Cut the list in half
 
-        # Step 3: Merge the two halfs
-        first, second = head, prev
-        while second:
-            tmp1, tmp2 = first.next, second.next
-            first.next = second
-            second.next = tmp1
-            first, second = tmp1, tmp2
-        
+        while curr_node:
+            next_temp = curr_node.next
+            curr_node.next = prev_node
+            prev_node = curr_node
+            curr_node = next_temp
+
+        # prev_node now points to the head of reversed second half
+
+        # Step 3: Merge the two halves alternately
+        first_half_ptr = head
+        second_half_ptr = prev_node
+
+        while second_half_ptr:
+            temp1 = first_half_ptr.next
+            temp2 = second_half_ptr.next
+
+            first_half_ptr.next = second_half_ptr
+            second_half_ptr.next = temp1
+
+            first_half_ptr = temp1
+            second_half_ptr = temp2
