@@ -1,19 +1,14 @@
-import string
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        """
-        Use string library to remove all the special characters
-        Remove all the spaces and convert the string to lowercase
-        Start a left and right pointer at beginning and end of the string
-        Compare both and keep moving them until left < right
-        if they are not the same return false
-        return true in the end
-        """
-        s = re.sub(r'[^a-zA-Z0-9]', '', s).lower()
-        left, right = 0, len(s)-1
-        while left < right:
-            if s[left] != s[right]:
+        s = re.sub("[^0-9a-zA-Z]", "", s)
+        s = s.lower()
+        l, r = 0, len(s) - 1
+        print(s)
+        while l < r:
+            if s[l] == s[r]:
+                l += 1
+                r -= 1
+            else:
                 return False
-            left +=1
-            right -= 1
+            
         return True
