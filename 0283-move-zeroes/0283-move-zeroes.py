@@ -3,8 +3,9 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        next_position = 0
+        nextnonzero = 0
         for i in range(len(nums)):
             if nums[i] != 0:
-                nums[i], nums[next_position] = nums[next_position], nums[i]
-                next_position += 1
+                nums[i], nums[nextnonzero] = nums[nextnonzero], nums[i]
+                nextnonzero += 1
+        return nums
