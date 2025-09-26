@@ -12,10 +12,9 @@ class Solution:
         clone = {}
         def dfs(node):
             if not node:
-                return None
+                return
             if node in clone:
                 return clone[node]
-            
             copy = Node(node.val)
             clone[node] = copy
 
@@ -23,4 +22,5 @@ class Solution:
                 clone[node].neighbors.append(dfs(nei))
             
             return clone[node]
+    
         return dfs(node)
