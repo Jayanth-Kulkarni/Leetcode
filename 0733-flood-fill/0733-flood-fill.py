@@ -1,17 +1,19 @@
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
-        row, col = len(image), len(image[0])
-        queue = deque()
-        queue.append((sr, sc))
-        oc = image[sr][sc]
-        image[sr][sc] = color
-        visited = set((sr,sc))
-        while queue:
-            r1, c1 = queue.popleft()
-            for r_, c_ in [(1,0), (-1, 0), (0,1), (0,-1)]:
-                r, c = r1 + r_, c1 + c_
-                if 0 <= r < row and 0 <= c < col and image[r][c] == oc and (r,c) not in visited:
-                    image[r][c] = color
-                    queue.append((r,c))
-                    visited.add((r,c)) 
+        rows, cols = len(image), len(image[0])
+        original_color = image[sr][sc]
+
+        if original_color == color:
+            return image
+
+        def dfs(r, c):
+            if image[r][c] == original_color:
+                image[r][c] = color
+
+                if r >=1 : dfs(r-1, c)
+                if r +1 < rows: dfs(r+1, c)
+                if c >=1 : dfs(r, c-1)
+                if c +1 < cols: dfs(r, c+1)
+            return
+        dfs(sr,sc)
         return image
