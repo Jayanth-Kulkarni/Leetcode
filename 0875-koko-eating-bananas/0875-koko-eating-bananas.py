@@ -1,22 +1,20 @@
 class Solution:
-    def findSpeed(self, piles, k, h):
-        sum = 0
+    def findspeed(self,piles,h,k):
+        speed = 0
         for pile in piles:
-            sum += math.ceil(pile/k)
-        if sum <= h:
-            return True
-        return False
-
+            speed += math.ceil(pile/k)
+        if speed > h:
+            return False
+        return True
 
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        # Do binary search here
         l, r = 1, max(piles)
-        res = r
-        while l < r:
-            mid = (l+r)//2
-            if self.findSpeed(piles, mid, h):
+        res = 1
+        while l <= r:
+            mid = (l + r)//2
+            if self.findspeed(piles, h, mid):
+                r = mid-1
                 res = mid
-                r = mid
             else:
-                l = mid + 1
+                l = mid+1
         return res
