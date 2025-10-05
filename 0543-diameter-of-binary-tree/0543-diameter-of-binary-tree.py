@@ -16,7 +16,7 @@ class Solution:
 
             self.max_ = max(self.max_, left + right)
 
-            return 1 + max(left, right)
-        
+            return 1+max(left,right)
+
         dfs(root)
         return self.max_
